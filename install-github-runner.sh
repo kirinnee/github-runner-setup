@@ -3,7 +3,10 @@
 name=$1
 url=$2
 token=$3
-full_name="${HOST}-${name}"
+host="$(hostname)"
+[ "$host" = "" ] && host="random"
+
+full_name="${host}-${name}"
 
 cd "$HOME" || exit
 mkdir actions-runner
