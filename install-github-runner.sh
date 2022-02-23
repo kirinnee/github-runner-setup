@@ -5,6 +5,7 @@ url=$2
 token=$3
 full_name="${HOST}-${name}"
 
+cd "$HOME" || exit
 mkdir actions-runner
 cd actions-runner || exit
 curl -o actions-runner-linux-x64-2.287.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.287.1/actions-runner-linux-x64-2.287.1.tar.gz
