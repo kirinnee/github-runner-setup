@@ -1,0 +1,14 @@
+version: "3"
+tasks:
+  ansible:
+    desc: Lint Ansible Files
+    cmds:
+      - ansible-lint ./ops/playbooks/**/*.yml
+  sh:
+    desc: Lint shell scripts
+    cmds:
+      - find . -name "*.sh" -exec shellcheck {} +
+  docker:
+    desc: Lint Dockerfiles with hadolint
+    cmds:
+      - find . -name "Dockerfile" -exec hadolint {} +

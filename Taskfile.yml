@@ -1,0 +1,20 @@
+version: 3
+
+tasks:
+  lint:
+    desc: Lint all files
+    cmds:
+      - task: lint:sh
+      - task: lint:ansible
+      - task: lint:docker
+      - task: lint:
+  fmt:
+    desc: Format all files
+    cmds:
+      - task: fmt:sh
+      - task: fmt:yaml
+      - task: fmt:nix
+      - task: fmt:md
+  cfg:scripts:
+    cmds:
+      - chmod -R +x ./scripts
