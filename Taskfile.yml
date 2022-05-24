@@ -1,13 +1,14 @@
 version: 3
 
+includes:
+  lint: ./scripts/lint.yml
+  fmt: ./scripts/fmt.yml
+
 tasks:
   lint:
     desc: Lint all files
     cmds:
       - task: lint:sh
-      - task: lint:ansible
-      - task: lint:docker
-      - task: lint:
   fmt:
     desc: Format all files
     cmds:

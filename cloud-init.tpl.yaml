@@ -1,6 +1,5 @@
 #cloud-config
 
-
 user_configs: &user_configs
   sudo: ALL=(ALL) NOPASSWD:ALL
   groups: users, admin, docker
@@ -19,7 +18,6 @@ users:
     name: github2
   - <<: *user_configs
     name: github3
-
 
 package_update: true
 
@@ -57,7 +55,7 @@ runcmd:
   # setup nix configurations
   - echo "keep-derivations = true" >> /etc/nix/nix.conf
   - echo "keep-outputs = true" >> /etc/nix/nix.conf
-  
+
   # install github runner per user
   - sudo -u github0 bash -c 'curl -L https://raw.githubusercontent.com/kirinnee/github-runner-setup/main/install-github-runner.sh | sh -s -- r0 <url> <token>'
   - sudo -u github1 bash -c 'curl -L https://raw.githubusercontent.com/kirinnee/github-runner-setup/main/install-github-runner.sh | sh -s -- r1 <url> <token>'

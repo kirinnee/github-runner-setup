@@ -13,8 +13,7 @@ with pkgs;
   ];
 
   lint = [
-    ansible-lint
-    hadolint
+    pre-commit
     nixpkgs-fmt
     prettier
     shfmt

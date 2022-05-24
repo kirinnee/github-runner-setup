@@ -19,7 +19,6 @@ users:
   - <<: *user_configs
     name: github3
 
-
 package_update: true
 
 apt:

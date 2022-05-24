@@ -11,6 +11,7 @@ let pkgs = {
     {
       inherit
         terraform
+        pre-commit
         nixpkgs-fmt
         coreutils
         git
