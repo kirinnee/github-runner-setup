@@ -15,4 +15,5 @@ curl -o actions-runner-linux-x64-2.294.0.tar.gz -L https://github.com/actions/ru
 tar xzf ./actions-runner-linux-x64-2.294.0.tar.gz
 rm actions-runner-linux-x64-2.294.0.tar.gz
 ./config.sh --url "$url" --token "$token" --name "$full_name" --unattended --work "_work" --replace --labels "docker,nix"
-tmux new -s "$full_name" -d 'while true; do ./run.sh; done'
+sudo ./svc.sh install "$USER"
+sudo ./svc.sh start
