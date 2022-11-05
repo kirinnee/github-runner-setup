@@ -15,8 +15,8 @@ mkdir actions-runner
 cd actions-runner || exit
 
 version=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-
-curl -o "actions-runner.tar.gz" -L "https://github.com/actions/runner/releases/download/$version/actions-runner-linux-$arch-$version.tar.gz"
+v=$(printf "%s\n" "${version#?}")
+curl -o "actions-runner.tar.gz" -L "https://github.com/actions/runner/releases/download/$version/actions-runner-linux-$arch-$v.tar.gz"
 
 tar xzf ./actions-runner.tar.gz
 rm ./actions-runner.tar.gz
