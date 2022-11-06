@@ -48,3 +48,4 @@ runcmd:
 
   # install github runner per user
   - sudo -u github-runner bash -c 'curl -L https://raw.githubusercontent.com/kirinnee/github-runner-setup/main/install-github-runner.sh | sh -s -- <hello> <url> <token> x64'
+  - sudo -u github-runner bash -c 'curl -L https://raw.githubusercontent.com/kirinnee/github-runner-setup/main/start-up-nix-share.sh | sh -s -- <subnet>'
