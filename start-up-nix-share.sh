@@ -13,7 +13,7 @@ nix-env -iA atomi-u.nix-share
 host=$(hostname)
 
 cd "$HOME" || exit
-mkdir nix-share
+mkdir -p nix-share
 cd nix-share || exit
 nix-store --generate-binary-cache-key "$host-1" ./secret ./public
 
@@ -43,5 +43,8 @@ echo "$cronContent" >>mycron
 crontab mycron
 rm mycron
 
-tmux new -s "nix-serve@$(pwd)" -d $'sudo -u github-runner bash -i -c \'NIX_SECRET_KEY_FILE=\${secretKeyPath} nix run github:edolstra/nix-serve\''
-tmux new -s "nix-share@$(pwd)" -d $'sudo -u github-runner bash -i -c \'cd "$HOME/nix-share" && nix-share r -c "$(pwd)/ns-track.json"\''
+# shellcheck disable=SC2016
+tmux new -s "nix-serve" -d 'NIX_SECRET_KEY_FILE=${secretKeyPath} nix run github:edolstra/nix-serve'
+
+# shellcheck disable=SC2016
+tmux new -s "nix-share" -d 'cd "$HOME/nix-share" && nix-share r -c "$(pwd)/ns-track.json"'
