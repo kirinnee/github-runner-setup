@@ -42,3 +42,6 @@ EndOfMessage
 echo "$cronContent" >>mycron
 crontab mycron
 rm mycron
+
+sudo -u github-runner bash -i -c 'NIX_SECRET_KEY_FILE=${secretKeyPath} nix run github:edolstra/nix-serve' &
+sudo -u github-runner bash -i -c 'cd "$HOME/nix-share" && nix-share r -c "$(pwd)/ns-track.json"' &
