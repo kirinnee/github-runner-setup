@@ -17,6 +17,9 @@ mkdir -p nix-share
 cd nix-share || exit
 nix-store --generate-binary-cache-key "$host-1" ./secret ./public
 
+mkdir -p "$HOME/.config/nix/"
+touch "$HOME/.config/nix/nix.conf"
+
 secretKeyPath="$(pwd)/secret"
 publicKeyPath="$(pwd)/public"
 
@@ -44,7 +47,7 @@ crontab mycron
 rm mycron
 
 # shellcheck disable=SC2016
-tmux new -s "nix-serve" -d 'NIX_SECRET_KEY_FILE=${secretKeyPath} nix run github:edolstra/nix-serve'
+tmux new -s "nix-serve" -d "NIX_SECRET_KEY_FILE=${secretKeyPath} nix run github:edolstra/nix-serve"
 
 # shellcheck disable=SC2016
 tmux new -s "nix-share" -d 'cd "$HOME/nix-share" && nix-share r -c "$(pwd)/ns-track.json"'
