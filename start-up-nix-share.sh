@@ -6,6 +6,7 @@ subnet="$1"
 nix-channel --add https://github.com/kirinnee/test-nix-repo/archive/main.tar.gz atomi-u
 nix-channel --update
 
+nix-env -iA nixpkgs.cachix
 nix-env -iA nixpkgs.jq
 nix-env -iA nixpkgs.sx-go
 nix-env -iA atomi-u.nix-share
@@ -17,8 +18,8 @@ mkdir -p nix-share
 cd nix-share || exit
 nix-store --generate-binary-cache-key "$host-1" ./secret ./public
 
-mkdir -p "$HOME/.config/nix/"
-touch "$HOME/.config/nix/nix.conf"
+echo "trusted-users = root github-runner" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
+cachix use kirinnee-sample-binary-cache
 
 secretKeyPath="$(pwd)/secret"
 publicKeyPath="$(pwd)/public"
