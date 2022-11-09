@@ -9,13 +9,16 @@ host="$(hostname)"
 [ "$host" = "" ] && host="random"
 full_name="${host}-${name}"
 
+tokenType="orgs"
+(echo "$url" | grep "\/") && tokenType="repos"
+
 cd "$HOME" || exit
 mkdir actions-runner
 
 cd actions-runner || exit
 
 # obtain token via GH actions
-jwt=$(curl --request POST "https://api.github.com/repos/${url}/actions/runners/registration-token" --header "Authorization: token ${token}")
+jwt=$(curl --request POST "https://api.github.com/${tokenType}/${url}/actions/runners/registration-token" --header "Authorization: Bearer ${token}")
 reg_token=$(echo "$jwt" | jq -r '.token')
 
 version=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
