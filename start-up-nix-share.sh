@@ -26,8 +26,9 @@ publicKeyPath="$(pwd)/public"
 
 cronContent=$(
 	cat <<EndOfMessage
-@reboot sudo -u github-runner bash -i -c 'NIX_SECRET_KEY_FILE=${secretKeyPath} nix run github:edolstra/nix-serve'
-@reboot sudo -u github-runner bash -i -c 'cd "$HOME/nix-share" && nix-share r -c "$(pwd)/ns-track.json"'
+@reboot sudo -u github-runner bash -i -c 'sudo chown -R \$USER /nix'
+@reboot sleep 5 && sudo -u github-runner bash -i -c 'nix-shell -p hello --command hello && NIX_SECRET_KEY_FILE=${secretKeyPath} nix run github:edolstra/nix-serve'
+@reboot sleep 15 && sudo -u github-runner bash -i -c 'nix-shell -p hello --command hello && cd $HOME/nix-share && nix-share r -c $(pwd)/ns-track.json'
 * * * * * sudo -u github-runner bash -i -c 'sudo $(which sx-go) arp --json $subnet | jq -r .ip | while read -r line; do echo "\$line" | nix-share s --host "$(hostname)" "${publicKeyPath}"; done'
 * * * * * sudo -u github-runner bash -i -c 'sleep 5 && sudo $(which sx-go) arp --json $subnet | jq -r .ip | while read -r line; do echo "\$line" | nix-share s --host "$(hostname)" "${publicKeyPath}"; done'
 * * * * * sudo -u github-runner bash -i -c 'sleep 10 && sudo $(which sx-go) arp --json $subnet | jq -r .ip | while read -r line; do echo "\$line" | nix-share s --host "$(hostname)" "${publicKeyPath}"; done'

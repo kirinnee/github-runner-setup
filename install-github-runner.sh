@@ -4,10 +4,12 @@ name=$1
 url=$2
 token=$3
 arch=$4
+disable_host=$5
 
 host="$(hostname)"
 [ "$host" = "" ] && host="random"
 full_name="${host}-${name}"
+[ "$disable_host" = "true" ] && full_name="${name}"
 
 cd "$HOME" || exit
 mkdir actions-runner
