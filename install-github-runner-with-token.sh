@@ -5,6 +5,7 @@ url=$2
 token=$3
 arch=$4
 disable_host=$5
+addition_labels=$6
 
 host="$(hostname)"
 [ "$host" = "" ] && host="random"
@@ -29,6 +30,6 @@ curl -o "actions-runner.tar.gz" -L "https://github.com/actions/runner/releases/d
 
 tar xzf ./actions-runner.tar.gz
 rm ./actions-runner.tar.gz
-./config.sh --url "https://github.com/$url" --token "$reg_token" --name "$full_name" --unattended --work "_work" --replace --labels "docker,nix,$arch"
+./config.sh --url "https://github.com/$url" --token "$reg_token" --name "$full_name" --unattended --work "_work" --replace --labels "docker,nix,${arch}${addition_labels}"
 sudo ./svc.sh install "$USER"
 sudo ./svc.sh start
